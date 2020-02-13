@@ -21,6 +21,9 @@ const App = () => {
   const [fetchedData, setFetchedData] = useState(false);
   const [list, setList] = useState([]);
   const [resources, setResources] = useState([]);
+  const [name, setName] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
   const heads = ["Clinical Status", "Date Recorded", "Verification Status", "Resource"]
 
   useEffect(() => {
@@ -37,6 +40,15 @@ const App = () => {
       setList(list)
       setResources(data.data.map(d => d.resource.code.text))
       setFetchedData(true)
+    })
+    axiosInstance.get("/personal").then(results => {
+      const {
+        data
+      } = results;
+      console.log(data);
+      setName(data.name)
+      setDob(data.dob)
+      setGender(data.gender)
     })
   }, []);
 
@@ -77,7 +89,16 @@ const App = () => {
   return (
     <div className="App">
       { !fetchedData ? <p>loading</p> :
-        <Table list={list} heads={heads} resources={resources} fetchData={fetchData}/>}
+        <Table
+          list={list}
+          heads={heads}
+          resources={resources}
+          fetchData={fetchData}
+          name={name}
+          dob={dob}
+          gender={gender}
+        />
+      }
     </div>
   );
 }

@@ -15,11 +15,18 @@ function Table(props) {
     heads,
     list,
     resources,
-    fetchData
+    fetchData,
+    name,
+    gender,
+    dob
   } = props;
 
   return (
     <div class="limiter">
+
+      <p>{name}</p>
+      <p>{gender}</p>
+      <p>{dob}</p>
 
       <div>
 
