@@ -24,7 +24,27 @@ const App = () => {
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
-  const heads = ["Clinical Status", "Date Recorded", "Verification Status", "Resource"]
+  const heads = ["Clinical Status", "Date Recorded", "Verification Status", "Resource"];
+
+  const sort = (data) => {
+    if(data === "Resource"){
+      const filtered = list.filter(data => data.resource);
+      const newList = filtered.sort(function (a, b) {
+        if (a.resource < b.resource) { return -1 }
+        if (a.resource > b.resource) { return 1 }
+        return 0;
+      })
+      setList(newList)
+    } else if(data === "Date Recorded"){
+      const filtered = list.filter(data => data.dateRecorded);
+      const newList = filtered.sort((a, b) => {
+        const date1 = new Date (a.dateRecorded)
+        const date2 = new Date (b.dateRecorded)
+        return date1 - date2;
+      });
+      setList(newList)
+    }
+  }
 
   useEffect(() => {
     axiosInstance.get("/").then(results => {
@@ -45,7 +65,6 @@ const App = () => {
       const {
         data
       } = results;
-      console.log(data);
       setName(data.name)
       setDob(data.dob)
       setGender(data.gender)
@@ -97,6 +116,7 @@ const App = () => {
           name={name}
           dob={dob}
           gender={gender}
+          sort={sort}
         />
       }
     </div>

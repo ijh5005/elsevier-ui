@@ -18,11 +18,12 @@ function Table(props) {
     fetchData,
     name,
     gender,
-    dob
+    dob,
+    sort
   } = props;
 
   return (
-    <div class="limiter">
+    <div class="limiter" onClick={() => console.log("hey")}>
 
       <p>{name}</p>
       <p>{gender}</p>
@@ -69,7 +70,7 @@ function Table(props) {
               <table>
                 <thead>
                   <tr class="row100 head">
-                    {heads.map((data, i) => <th key={i} class="cell100 column1">{data}</th>)}
+                    {heads.map((data, i) => <th key={i} class="cell100 column1" onClick={() => sort(data)}>{data}</th>)}
                   </tr>
                 </thead>
               </table>
